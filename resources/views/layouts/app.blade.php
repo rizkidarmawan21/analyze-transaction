@@ -21,6 +21,7 @@
     x-init="darkMode = JSON.parse(localStorage.getItem('darkMode')); $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" 
     :class="{ 'dark text-bodydark bg-boxdark-2': darkMode === true }"
 >
+    @include('partials.notification')
     <div class="flex h-screen overflow-hidden">
       <!-- ===== Sidebar Start ===== -->
       @include('partials.dashboard.sidebar')
