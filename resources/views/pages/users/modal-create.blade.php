@@ -21,18 +21,22 @@
                             </button>
                         </div>
                         <div class="mt-10">
-                            <form action="{{ route('users.store') }}" method="POST" class="space-y-3">
+                            <form
+                                :action="isEdit ? '{{ url('') }}' + '/users/' + selectedValue?.id : '{{ route('users.store') }}'"
+                                method="POST" class="space-y-3">
                                 @csrf
+                                <input type="hidden" name="_method" :value="isEdit ? 'PUT' : 'POST'">
                                 <div class="space-y-2">
                                     <x-input-label for="name" value="Name" class="!text-lg" />
                                     <x-text-input id="name" name="name" type="text" placeholder="Insert Name"
-                                        class="!py-2 !px-3" />
+                                        x-bind:value="isEdit ? selectedValue.name : ''" class="!py-2 !px-3" />
                                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 </div>
                                 <div class="space-y-2">
                                     <x-input-label for="email" value="Email" class="!text-lg" />
                                     <x-text-input id="email" name="email" type="email"
-                                        placeholder="Insert Email Address" class="!py-2 !px-3" />
+                                        x-bind:value="isEdit ? selectedValue.email : ''" placeholder="Insert Email Address"
+                                        class="!py-2 !px-3" />
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
                                 <div class="space-y-2">
@@ -43,7 +47,7 @@
                                 </div>
                                 <div class="pt-10">
                                     <x-primary-button class="!rounded-full !py-3">
-                                        Create
+                                        <p x-text="isEdit ? 'Update' : 'Create'"></p>
                                     </x-primary-button>
                                 </div>
                             </form>

@@ -1,5 +1,12 @@
 <x-app-layout>
-    <div x-data="{modalCreate: false}">
+    <div x-data="{
+        modalCreate: false,
+        confirmDesc: 'Are you sure you want to delete this data? after deleting data you cannot restore it back',
+        confirmMethod: 'DELETE',
+        confirmUrl: '',
+        isEdit: false,
+        selectedValue: ''
+    }">
         <h2 class="mb-5 text-3xl font-medium">
             User Management
         </h2>
@@ -8,7 +15,7 @@
             <div>
                 {{-- searching input --}}
                 <div class="flex justify-between mb-5">
-                    <a @click="modalCreate = true"
+                    <a @click="modalCreate = true, isEdit = false"
                         class="text-sm cursor-pointer rounded-full border border-primary bg-primary py-2 px-5 font-medium text-white transition hover:bg-opacity-90">
                         Create User
                     </a>
@@ -37,8 +44,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach ($users as $item)
-                        <tr class="bg-slate-100/25">
+                        @foreach ($users as $item)
+                            <tr class="bg-slate-100/25">
                                 <td class="border border-[#eee] px-4 py-2 pl-9 dark:border-strokedark xl:pl-11">
                                     <h5 class="font-medium text-black dark:text-white">
                                         {{ $loop->iteration }}
@@ -62,10 +69,8 @@
                                 </td> --}}
                                 <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                     <div class="flex items-center space-x-3.5">
-                                       <form action="{{ route('users.destroy',$item->id) }}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                         <button type="submit" class="hover:text-primary">
+                                        <button type="submit" class="hover:text-primary"
+                                            @click="confirmUrl = '{{ route('users.destroy', $item->id) }}', document.querySelector('.confirmModal').classList.remove('hidden') ">
                                             <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18"
                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path
@@ -82,8 +87,8 @@
                                                     fill="" />
                                             </svg>
                                         </button>
-                                       </form>
-                                        <button class="hover:text-primary">
+                                        <button class="hover:text-primary"
+                                            @click="isEdit = true, selectedValue = { id: '{{ $item->id }}', name: '{{ $item->name }}', email: '{{ $item->email }}' }, modalCreate = true">
                                             <svg class="fill-current" width="16" height="16"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -94,11 +99,12 @@
                                     </div>
                                 </td>
                             </tr>
-                    @endforeach
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
         @include('pages.users.modal-create')
+        @include('partials.confirm')
     </div>
 </x-app-layout>
