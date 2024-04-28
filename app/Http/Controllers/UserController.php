@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('pages.users.index',compact('users'));
+        return view('pages.users.index', compact('users'));
     }
 
     /**
@@ -64,7 +64,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required',
+            // 'password' => 'required',
         ]);
 
         $user->update($validated);
