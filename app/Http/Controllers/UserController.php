@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -80,5 +82,18 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+    }
+
+    public function import()
+    {
+        try {
+            //code...
+            Excel::import(new UsersImport, public_path('users.xlsx'));
+
+            echo 'import success';
+        } catch (\Throwable $th) {
+            echo 'import failed';
+            //throw $th;
+        }
     }
 }
