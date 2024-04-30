@@ -20,4 +20,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
 });
 
+Route::get('import-users',[UserController::class,'import'])->name('import-users');
+
 require __DIR__.'/auth.php';
