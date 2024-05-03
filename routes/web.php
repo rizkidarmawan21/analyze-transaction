@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use EnzoMC\PhpFPGrowth\FPGrowth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,6 +21,40 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
 });
 
-Route::get('import-users',[UserController::class,'import'])->name('import-users');
+Route::get('import-users', [UserController::class, 'import'])->name('import-users');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+
+Route::get('coba', function () {
+
+
+    $support = 3;
+    $confidence = 0.7;
+
+    $fpgrowth = new FPGrowth($support, $confidence);
+
+    $transactions = [
+        ['M', 'O', 'N', 'K', 'E', 'Y'],
+        ['D', 'O', 'N', 'K', 'E', 'Y'],
+        ['M', 'A', 'K', 'E'],
+        ['M', 'U', 'C', 'K', 'Y'],
+        ['C', 'O', 'O', 'K', 'I', 'E'],
+        ['M', 'A', 'K', 'E'],
+        ['M', 'U', 'C', 'K', 'Y'],
+        ['C', 'O', 'O', 'K', 'I', 'E'],
+        ['M', 'A', 'K', 'E'],
+        ['M', 'U', 'C', 'K', 'Y'],
+        ['C', 'O', 'O', 'K', 'I', 'E'],
+        ['M', 'A', 'K', 'E'],
+        ['M', 'U', 'C', 'K', 'Y'],
+        ['C', 'O', 'O', 'K', 'I', 'E']
+    ];
+
+    $fpgrowth->run($transactions);
+
+    $patterns = $fpgrowth->getPatterns();
+    // dd($patterns);
+    $rules = $fpgrowth->getRules();
+    dd($rules);
+});

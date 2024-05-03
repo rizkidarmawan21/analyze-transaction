@@ -66,7 +66,9 @@
                                     <div class="mb-4">
                                         <label class="mb-2.5 block font-medium text-black dark:text-white">Email</label>
                                         <div class="relative">
-                                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" placeholder="Enter your email" :value="old('email')" required autofocus autocomplete="username" />
+                                            <x-text-input id="email" class="block mt-1 w-full" type="email"
+                                                name="email" placeholder="Enter your email" :value="old('email')" required
+                                                autofocus autocomplete="username" />
                                             <span class="absolute right-4 top-4">
                                                 <svg class="fill-current" width="22" height="22"
                                                     viewBox="0 0 22 22" fill="none"
@@ -87,11 +89,9 @@
                                             Password
                                         </label>
                                         <div class="relative">
-                                            <x-text-input id="password" class="block mt-1 w-full"
-                                                type="password"
-                                                name="password"
-                                                placeholder="Enter your password"
-                                                required autocomplete="current-password" />
+                                            <x-text-input id="password" class="block mt-1 w-full" type="password"
+                                                name="password" placeholder="Enter your password" required
+                                                autocomplete="current-password" />
 
                                             <span class="absolute right-4 top-4">
                                                 <svg class="fill-current" width="22" height="22"
