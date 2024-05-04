@@ -1,7 +1,7 @@
 <x-app-layout>
     <div x-data="{
         modalCreate: false,
-        confirmDesc: 'Are you sure you want to delete this data? after deleting data you cannot restore it back',
+        confirmDesc: 'Are you sure you want to delete this data?',
         confirmMethod: 'DELETE',
         confirmUrl: '',
         isEdit: false,

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DatasetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use EnzoMC\PhpFPGrowth\FPGrowth;
@@ -19,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('users', UserController::class);
+    Route::resource('datasets', DatasetController::class);
 });
 
 Route::get('import-users', [UserController::class, 'import'])->name('import-users');
