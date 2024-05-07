@@ -39,7 +39,8 @@
                                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 </div>
                                 <div class="space-y-2">
-                                    <a href="" class="underline text-sky-600">Download example/template excel</a>
+                                    <a href="{{ route('dataset.download-template') }}"
+                                        class="underline text-sky-600">Download example/template excel</a>
                                 </div>
                                 <div class="pt-7">
                                     <x-primary-button class="!rounded-full !py-3">
