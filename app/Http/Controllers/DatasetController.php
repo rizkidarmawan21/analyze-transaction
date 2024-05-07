@@ -39,4 +39,9 @@ class DatasetController extends Controller
 
         return redirect()->back();
     }
+
+    public function downloadTemplate()
+    {
+        return response()->download(public_path('template_excel.xlsx'));
+    }
 }
