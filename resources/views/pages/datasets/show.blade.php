@@ -55,7 +55,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($dataset->transactions as $transaction)
+                        @foreach ($transactions as $transaction)
                             <tr class="bg-slate-100/25">
                                 <td class="border border-[#eee] px-4 py-2 pl-9 dark:border-strokedark xl:pl-11">
                                     <h5 class="font-medium text-black dark:text-white">
@@ -138,6 +138,10 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="mt-5">
+                    {{ $transactions->links() }}
+
+                </div>
             </div>
         </div>
     </div>

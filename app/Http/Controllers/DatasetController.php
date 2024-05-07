@@ -18,7 +18,9 @@ class DatasetController extends Controller
     public function show($id)
     {
         $dataset = Dataset::find($id);
-        return view('pages.datasets.show', compact('dataset'));
+        $transactions = $dataset->transactions()->paginate(5);
+        $total = $dataset->transactions->count();
+        return view('pages.datasets.show', compact('dataset', 'transactions', 'total'));
     }
 
     public function import(Request $request)
