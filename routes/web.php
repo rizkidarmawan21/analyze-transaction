@@ -22,6 +22,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class);
     Route::resource('datasets', DatasetController::class);
+    Route::controller(DatasetController::class)->name('dataset.')->prefix('dataset')->group(function () {
+        Route::post('import', 'import')->name('import');
+        Route::get('download-template', 'downloadTemplate')->name('download-template');
+    });
 });
 
 Route::get('import-users', [UserController::class, 'import'])->name('import-users');
