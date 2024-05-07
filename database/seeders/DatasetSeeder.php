@@ -24,7 +24,7 @@ class DatasetSeeder extends Seeder
                 'no_transaction' => 'TRX001',
                 'transaction_date' => '2021-01-01',
                 'customer_name' => 'John Doe',
-                'total_price' => 100000,
+
                 'details' => [
                     ['product_name' => 'Laptop Asus', 'quantity' => 1, 'price' => 100000],
                     ['product_name' => 'Laptop Axio', 'quantity' => 1, 'price' => 200000], ['product_name' => 'Laptop Axio', 'quantity' => 2, 'price' => 150000],
@@ -36,7 +36,6 @@ class DatasetSeeder extends Seeder
                 'no_transaction' => 'TRX002',
                 'transaction_date' => '2021-01-02',
                 'customer_name' => 'Jane Doe',
-                'total_price' => 200000,
                 'details' => [
                     ['product_name' => 'Laptop Tuf', 'quantity' => 1, 'price' => 100000], ['product_name' => 'Laptop Asus', 'quantity' => 1, 'price' => 100000],
                     ['product_name' => 'Laptop Axio', 'quantity' => 1, 'price' => 200000], ['product_name' => 'Laptop Axio', 'quantity' => 2, 'price' => 150000],
@@ -47,7 +46,6 @@ class DatasetSeeder extends Seeder
                 'no_transaction' => 'TRX002',
                 'transaction_date' => '2021-01-02',
                 'customer_name' => 'Jane Doe',
-                'total_price' => 200000,
                 'details' => [
                     ['product_name' => 'Laptop Axio', 'quantity' => 1, 'price' => 100000],
                     ['product_name' => 'Laptop Rog', 'quantity' => 1, 'price' => 200000]
@@ -56,7 +54,6 @@ class DatasetSeeder extends Seeder
                 'no_transaction' => 'TRX002',
                 'transaction_date' => '2021-01-02',
                 'customer_name' => 'Jane Doe',
-                'total_price' => 200000,
                 'details' => [
                     ['product_name' => 'Laptop Tuf', 'quantity' => 1, 'price' => 100000],
                     ['product_name' => 'Laptop Asus', 'quantity' => 1, 'price' => 200000], ['product_name' => 'Laptop Axio', 'quantity' => 1, 'price' => 100000],
@@ -66,7 +63,6 @@ class DatasetSeeder extends Seeder
                 'no_transaction' => 'TRX003',
                 'transaction_date' => '2021-01-03',
                 'customer_name' => 'Alice Smith',
-                'total_price' => 300000,
                 'details' => [
                     ['product_name' => 'Laptop Dell', 'quantity' => 2, 'price' => 150000], ['product_name' => 'Laptop Axio', 'quantity' => 1, 'price' => 100000],
                     ['product_name' => 'Laptop Rog', 'quantity' => 1, 'price' => 200000],
@@ -77,7 +73,6 @@ class DatasetSeeder extends Seeder
                 'no_transaction' => 'TRX003',
                 'transaction_date' => '2021-01-03',
                 'customer_name' => 'Alice Smith',
-                'total_price' => 300000,
                 'details' => [
                     ['product_name' => 'Laptop Tuf', 'quantity' => 2, 'price' => 150000],
                     ['product_name' => 'Laptop Rog', 'quantity' => 1, 'price' => 150000],
@@ -89,7 +84,6 @@ class DatasetSeeder extends Seeder
                 'no_transaction' => 'TRX003',
                 'transaction_date' => '2021-01-03',
                 'customer_name' => 'Alice Smith',
-                'total_price' => 300000,
                 'details' => [
                     ['product_name' => 'Laptop Dell', 'quantity' => 2, 'price' => 150000],
                     ['product_name' => 'Laptop HP', 'quantity' => 1, 'price' => 150000],
@@ -99,7 +93,6 @@ class DatasetSeeder extends Seeder
                 'no_transaction' => 'TRX003',
                 'transaction_date' => '2021-01-03',
                 'customer_name' => 'Alice Smith',
-                'total_price' => 300000,
                 'details' => [
                     ['product_name' => 'Laptop Tuf', 'quantity' => 2, 'price' => 150000],
                     ['product_name' => 'Laptop Axio', 'quantity' => 1, 'price' => 150000],
@@ -109,7 +102,6 @@ class DatasetSeeder extends Seeder
                 'no_transaction' => 'TRX003',
                 'transaction_date' => '2021-01-03',
                 'customer_name' => 'Alice Smith',
-                'total_price' => 300000,
                 'details' => [
                     ['product_name' => 'Laptop Axio', 'quantity' => 2, 'price' => 150000],
                     ['product_name' => 'Laptop HP', 'quantity' => 1, 'price' => 150000],
@@ -122,7 +114,6 @@ class DatasetSeeder extends Seeder
             'no_transaction' => 'TRX003',
             'transaction_date' => '2021-01-03',
             'customer_name' => 'Alice Smith',
-            'total_price' => 300000,
             'details' => [
                 ['product_name' => 'Laptop Dell', 'quantity' => 2, 'price' => 150000],
                 ['product_name' => 'Laptop Axio HP', 'quantity' => 1, 'price' => 150000], ['product_name' => 'Laptop HP', 'quantity' => 1, 'price' => 150000],
@@ -139,7 +130,6 @@ class DatasetSeeder extends Seeder
                 'no_transaction' => $transactionData['no_transaction'],
                 'transaction_date' => $transactionData['transaction_date'],
                 'customer_name' => $transactionData['customer_name'],
-                'total_price' => $transactionData['total_price']
             ]);
 
             foreach ($transactionData['details'] as $detail) {

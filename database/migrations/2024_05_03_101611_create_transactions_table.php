@@ -16,9 +16,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Dataset::class)->constrained('datasets')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('no_transaction');
-            $table->date('transaction_date');
+            $table->dateTime('transaction_date');
             $table->string('customer_name');
-            $table->integer('total_price');
+            // $table->integer('total_price');
             $table->timestamps();
         });
     }
