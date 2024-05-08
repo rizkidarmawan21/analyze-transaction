@@ -121,7 +121,7 @@
                                                     </td>
                                                     <td class="border border-[#eee] px-2 py-2 dark:border-strokedark">
                                                         <p class="text-black dark:text-white">
-                                                            {{ $detail->price }}
+                                                            {{ "Rp " . number_format($detail->price , 0, ',', '.') }}
                                                         </p>
                                                     </td>
                                                 </tr>
@@ -131,7 +131,7 @@
                                 </td>
                                 <td class="border border-[#eee] px-4 py-5 dark:border-strokedark">
                                     <p class="text-black dark:text-white">
-                                        400.000
+                                        {{ "Rp " . number_format($transaction->total_price, 0, ',', '.') }}
                                     </p>
                                 </td>
                             </tr>
