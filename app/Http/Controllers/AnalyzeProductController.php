@@ -25,8 +25,15 @@ class AnalyzeProductController extends Controller
         }
 
         $FPGrowth = new FPGrowthService();
-        $output = $FPGrowth->algoritma($dataset->id);
-        // dd($output);
+        if($dataset){
+            $output = $FPGrowth->algoritma($dataset->id);
+        }else{
+            $output = [
+                'frequent' => [],
+                'rules' => [],
+                'pattern' => []
+            ];
+        }
 
         return view('pages.product_analyze.index', compact('listDataset', 'output', 'dataset'));
     }
