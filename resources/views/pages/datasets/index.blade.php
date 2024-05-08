@@ -30,6 +30,9 @@
                                 Added At
                             </th>
                             <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
+                                Name
+                            </th>
+                            <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
                                 Added By
                             </th>
                             <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
@@ -53,6 +56,11 @@
                                         {{ $dataset->created_at }}
                                     </p>
                                 </td>
+                                <td class="border border-[#eee] px-4 py-2 dark:border-strokedark">
+                                    <p class="text-black dark:text-white">
+                                        {{ $dataset->name }}
+                                    </p>
+                                </td>
                                 <td class="border border-[#eee] px-4 py-5 dark:border-strokedark">
                                     <p class="text-black dark:text-white">
                                         {{ $dataset->user->name }}
@@ -67,7 +75,7 @@
                                 <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                     <div class="flex items-center space-x-3.5">
                                         <button type="submit" class="hover:text-primary"
-                                            @click="confirmUrl = 'http://localhost/user', document.querySelector('.confirmModal').classList.remove('hidden') ">
+                                            @click="confirmUrl = '{{ route('dataset.destroy', $dataset->id) }}', document.querySelector('.confirmModal').classList.remove('hidden') ">
                                             <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18"
                                                 fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path

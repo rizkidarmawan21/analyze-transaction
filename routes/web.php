@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AnalyzeProductController;
 use App\Http\Controllers\DatasetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Models\Dataset;
 use App\Models\Transaction;
 use EnzoMC\PhpFPGrowth\FPGrowth;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +27,10 @@ Route::middleware('auth')->group(function () {
     Route::controller(DatasetController::class)->name('dataset.')->prefix('dataset')->group(function () {
         Route::post('import', 'import')->name('import');
         Route::get('download-template', 'downloadTemplate')->name('download-template');
+        Route::delete('{dataset}/destroy', 'destroy')->name('destroy');
+    });
+    Route::controller(AnalyzeProductController::class)->name('analyze.')->prefix('analyze')->group(function () {
+        Route::get('','index')->name('index');
     });
 });
 
@@ -49,7 +55,10 @@ function frequency($transactions)
     return $frequency;
 }
 
-Route::get('fp-growth', function () {
+Route::get('fp-growth/{id_dataset}', function ($id_dataset) {
+
+    $dataset = Dataset::findOrfail($id_dataset);
+
     //nilai support yang ditentukan
     $support = 3;
     $confidence = 0.7;
@@ -58,7 +67,7 @@ Route::get('fp-growth', function () {
     $fpgrowth = new FPGrowth($support, $confidence);
 
     //ambil data transaksi
-    $transaction = Transaction::all();
+    $transaction = Transaction::where('dataset_id', $dataset->id)->get();
 
     //mengambil data transaksi
     $transactions = [];

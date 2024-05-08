@@ -25,6 +25,13 @@
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="space-y-2">
+                                    <x-input-label for="name" value="Name" class="!text-lg" />
+                                    <x-text-input id="name" name="name" type="text" :value="old('name')"
+                                        placeholder="Insert Name" class="!py-2 !px-3" />
+                                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                </div>
+
+                                <div class="space-y-2">
                                     <x-input-label for="file" value="File Excel" class="!text-lg" />
                                     <x-text-input id="file" name="file_name" type="file"
                                         placeholder="Upload File"
@@ -36,8 +43,9 @@
                                             Only <strong>.xlsx</strong> file format is allowed
                                         </p>
                                     </span>
-                                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('file_name')" class="mt-2" />
                                 </div>
+
                                 <div class="space-y-2">
                                     <a href="{{ route('dataset.download-template') }}"
                                         class="underline text-sky-600">Download example/template excel</a>

@@ -41,6 +41,7 @@ class DatasetsImport implements ToCollection
                     'no_transaction' => $row[1],
                     'transaction_date' => $date,
                     'customer_name' => $row[3],
+                    'total_price' => $row[7],
                 ]);
             }
             TransactionDetail::create([
