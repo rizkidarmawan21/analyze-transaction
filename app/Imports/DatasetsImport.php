@@ -24,39 +24,41 @@ class DatasetsImport implements ToCollection
     }
     public function collection(Collection $rows)
     {
-        // try {
-        // DB::beginTransaction();
-        foreach ($rows as $row) {
-            if ($row[0] == 'NO.') {
-                continue;
-            }
-            if ($row[1] == null) {
-                $transaction = Transaction::latest()->first();
-            } else {
-                // dd($row[2]);
-                // dd(gettype($row[2]));
-                $date = Date::excelToDateTimeObject(intval($row[2]));
-                $date = Carbon::instance($date);
-                // dd($date);
-                // dd($date);
-                $transaction = Transaction::create([
-                    'dataset_id' => $this->id,
-                    'no_transaction' => $row[1],
-                    'transaction_date' => $date,
-                    'customer_name' => $row[3]
+
+        try {
+            DB::beginTransaction();
+
+            // hapus array yang pertama
+            $rows->forget(0);
+
+            $transaction = Transaction::latest()->first();
+
+            foreach ($rows as $row) {
+                if ($row[1] == null) {
+                } else {
+
+                    $date = Date::excelToDateTimeObject(intval($row[2]));
+                    $date = Carbon::instance($date);
+                    $transaction = Transaction::create([
+                        'dataset_id' => $this->id,
+                        'no_transaction' => $row[1],
+                        'transaction_date' => $date,
+                        'customer_name' => $row[3]
+                    ]);
+                }
+
+                TransactionDetail::create([
+                    'transaction_id' => $transaction->id,
+                    'product_name' => $row[4],
+                    'quantity' => $row[5],
+                    'price' => $row[6],
                 ]);
             }
-            TransactionDetail::create([
-                'transaction_id' => $transaction->id,
-                'product_name' => $row[4],
-                'quantity' => $row[5],
-                'price' => $row[6],
-            ]);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return response()->back()->with('failed', 'Gagal mengimport data' . $th->getMessage());
         }
-        // DB::commit();
-        // } catch (\Throwable $th) {
-        //     // DB::rollBack();
-        //     dd($th);
-        // }
     }
 }
