@@ -43,7 +43,7 @@ class FPGrowthService
         }
 
         //menghitung frekuensi item
-        $frequencies = frequency($transactions);
+        $frequencies = $this->frequency($transactions);
 
         //urutkan dari yang terbanyak dan ambil 10 data teratas
         arsort($frequencies);
