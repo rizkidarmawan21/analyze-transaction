@@ -6,6 +6,7 @@ use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
@@ -23,6 +24,8 @@ class DatasetsImport implements ToCollection
     }
     public function collection(Collection $rows)
     {
+        // try {
+        // DB::beginTransaction();
         foreach ($rows as $row) {
             if ($row[0] == 'NO.') {
                 continue;
@@ -40,8 +43,7 @@ class DatasetsImport implements ToCollection
                     'dataset_id' => $this->id,
                     'no_transaction' => $row[1],
                     'transaction_date' => $date,
-                    'customer_name' => $row[3],
-                    'total_price' => $row[7],
+                    'customer_name' => $row[3]
                 ]);
             }
             TransactionDetail::create([
@@ -51,5 +53,10 @@ class DatasetsImport implements ToCollection
                 'price' => $row[6],
             ]);
         }
+        // DB::commit();
+        // } catch (\Throwable $th) {
+        //     // DB::rollBack();
+        //     dd($th);
+        // }
     }
 }

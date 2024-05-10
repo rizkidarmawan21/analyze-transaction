@@ -49,9 +49,9 @@
                             <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
                                 Items
                             </th>
-                            <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
+                            {{-- <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
                                 Total Price
-                            </th>
+                            </th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -98,10 +98,17 @@
                                                     class="border border-[#eee] text-left px-2 py-1 font-medium text-black dark:text-white">
                                                     Price
                                                 </th>
+                                                <th
+                                                    class="border border-[#eee] text-left px-2 py-1 font-medium text-black dark:text-white">
+                                                    Sub Total
+                                                </th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
+                                            @php
+                                                $total_price = 0;
+                                            @endphp
                                             @foreach ($transaction->details as $detail)
                                                 <tr>
                                                     <td class="border border-[#eee] px-2 py-2 dark:border-strokedark">
@@ -121,17 +128,35 @@
                                                     </td>
                                                     <td class="border border-[#eee] px-2 py-2 dark:border-strokedark">
                                                         <p class="text-black dark:text-white">
-                                                            {{ "Rp " . number_format($detail->price , 0, ',', '.') }}
+                                                            {{ 'Rp ' . number_format($detail->price, 0, ',', '.') }}
+                                                        </p>
+                                                    </td>
+                                                    <td class="border border-[#eee] px-2 py-2 dark:border-strokedark">
+                                                        <p class="text-black dark:text-white">
+                                                            {{-- quantity * price --}}
+                                                            {{ 'Rp ' . number_format($detail->quantity * $detail->price, 0, ',', '.') }}
                                                         </p>
                                                     </td>
                                                 </tr>
+
+                                                @php
+                                                    $total_price += $detail->quantity * $detail->price;
+                                                @endphp
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </td>
+
+                            </tr>
+                            <tr class="bg-slate-100/25">
+                                <td colspan="4" class="border border-[#eee] px-4 py-5 dark:border-strokedark">
+                                    <p class="text-black font-semibold dark:text-white text-right">
+                                        Total Price
+                                    </p>
+                                </td>
                                 <td class="border border-[#eee] px-4 py-5 dark:border-strokedark">
-                                    <p class="text-black dark:text-white">
-                                        {{ "Rp " . number_format($transaction->total_price, 0, ',', '.') }}
+                                    <p class="text-black font-semibold dark:text-white">
+                                        {{ 'Rp ' . number_format($total_price, 0, ',', '.') }}
                                     </p>
                                 </td>
                             </tr>
