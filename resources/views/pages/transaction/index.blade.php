@@ -6,13 +6,7 @@
         confirmUrl: '',
     }">
         <h2 class="flex items-center mb-5 text-3xl font-medium">
-            Dataset Management
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mx-2 fill-current"
-                viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                <path
-                    d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z" />
-            </svg>
-            Show
+            Transaction Data
         </h2>
         <div
             class="rounded-sm border border-stroke bg-white px-5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
@@ -20,10 +14,24 @@
             <div class="max-w-full overflow-x-auto">
                 <div>
                     <div class="flex justify-between mb-5">
-                        <a href="{{ route('datasets.index') }}"
-                            class="px-5 py-2 text-sm font-medium text-white transition border rounded-full cursor-pointer border-primary bg-primary hover:bg-opacity-90">
-                            Back
-                        </a>
+                        <select name="" id="" x-data
+                            x-on:change="window.location.href = '?dataset_id=' + $event.target.value"
+                            class="rounded-lg border border-stroke bg-transparent pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary !py-2 !px-3 w-1/4">
+                            <option value="">-- Pilih Dataset --</option>
+                            @foreach ($listDataset as $item)
+                                <option value="{{ $item->id }}" @selected($dataset->id == $item->id)>{{ $item->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <input type="text" placeholder="Search by name or number transaction"
+                            class="w-1/4 rounded-full px-5 border-slate-400" x-data
+                            x-on:keydown.enter="
+                                const url = new URL(window.location.href);
+                                url.searchParams.set('search', $event.target.value);
+                                url.searchParams.delete('page');
+                                window.location.href = url.href;
+                            "
+                            value="{{ request('search') }}">
                     </div>
                 </div>
                 <div class="my-5">
@@ -164,7 +172,7 @@
                     </tbody>
                 </table>
                 <div class="mt-5">
-                    {{ $transactions->links() }}
+                    {{ $transactions->appends(['search' => request('search'), 'dataset_id' => request('dataset_id')])->links() }}
 
                 </div>
             </div>

@@ -1,5 +1,5 @@
 import './bootstrap';
-import "jsvectormap/dist/css/jsvectormap.css";
+// import "jsvectormap/dist/css/jsvectormap.css";
 import "flatpickr/dist/flatpickr.min.css";
 import "../css/satoshi.css";
 import "../css/app.css";
@@ -11,7 +11,6 @@ import chart01 from "./components/chart-01";
 import chart02 from "./components/chart-02";
 import chart03 from "./components/chart-03";
 import chart04 from "./components/chart-04";
-import map01 from "./components/map-01";
 
 Alpine.plugin(persist);
 window.Alpine = Alpine;
@@ -58,5 +57,4 @@ document.addEventListener("DOMContentLoaded", () => {
     chart02();
     chart03();
     chart04();
-    map01();
 });
