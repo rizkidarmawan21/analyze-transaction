@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnalyzeProductController;
 use App\Http\Controllers\DatasetController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
 use App\Models\Dataset;
 use App\Models\Transaction;
@@ -30,11 +31,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('{dataset}/destroy', 'destroy')->name('destroy');
     });
     Route::controller(AnalyzeProductController::class)->name('analyze.')->prefix('analyze')->group(function () {
-        Route::get('','index')->name('index');
+        Route::get('', 'index')->name('index');
+    });
+    Route::controller(TransactionController::class)->name('transaction.')->prefix('transaction')->group(function () {
+        Route::get('', 'index')->name('index');
     });
 });
 
 Route::get('import-users', [UserController::class, 'import'])->name('import-users');
 
 require __DIR__ . '/auth.php';
-
