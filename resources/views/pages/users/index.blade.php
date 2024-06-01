@@ -35,9 +35,9 @@
                             <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
                                 Email
                             </th>
-                            {{-- <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
+                            <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">
                                 Role
-                            </th> --}}
+                            </th>
                             <th class="px-4 py-4 font-medium text-black dark:text-white">
                                 Actions
                             </th>
@@ -61,14 +61,15 @@
                                         {{ $item->email }}
                                     </p>
                                 </td>
-                                {{-- <td class="border border-[#eee] px-4 py-5 dark:border-strokedark">
+                                <td class="border border-[#eee] px-4 py-5 dark:border-strokedark">
                                     <p
                                         class="inline-flex rounded-full bg-success bg-opacity-10 px-3 py-1 text-sm font-medium text-success">
-                                        Paid
+                                        {{ $item->role }}
                                     </p>
-                                </td> --}}
+                                </td>
                                 <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                     <div class="flex items-center space-x-3.5">
+                                        @if (!$item->is_default && auth()->user()->id != $item->id)
                                         <button type="submit" class="hover:text-primary"
                                             @click="confirmUrl = '{{ route('users.destroy', $item->id) }}', document.querySelector('.confirmModal').classList.remove('hidden') ">
                                             <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18"
@@ -87,8 +88,9 @@
                                                     fill="" />
                                             </svg>
                                         </button>
+                                        @endif
                                         <button class="hover:text-primary"
-                                            @click="isEdit = true, selectedValue = { id: '{{ $item->id }}', name: '{{ $item->name }}', email: '{{ $item->email }}' }, modalCreate = true">
+                                            @click="isEdit = true, selectedValue = { id: '{{ $item->id }}', name: '{{ $item->name }}', email: '{{ $item->email }}',  role: '{{ $item->role }}' }, modalCreate = true">
                                             <svg class="fill-current" width="16" height="16"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->

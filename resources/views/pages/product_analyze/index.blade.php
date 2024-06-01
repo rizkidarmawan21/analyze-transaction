@@ -53,6 +53,20 @@
                 </div>
                 @if ($dataset)
                     <div>
+                    <div class="flex gap-5 w-full my-5">
+                        <div class="flex-grow">
+                            <h1 class="font-bold">
+                                Patterns
+                            </h1>
+                            <canvas id="medicalItemsChart"></canvas>
+                        </div>
+                        <div class="w-[35%]">
+                            <h1 class="font-bold">
+                                Top Product 10
+                            </h1>
+                            <canvas id="medicalItemsChartDonat"></canvas>
+                        </div>
+                    </div>
                         <div class="my-5">
                             <h1 class="mt-10 text-xl">
                                 Dataset :
@@ -254,4 +268,96 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        const labelsPattern = @json(array_keys($output['patterns']));
+        const dataPattern = @json(array_values($output['patterns']));
+
+        const labelTop10 = @json(array_keys($output['frequent']));
+        const dataTop10 = @json(array_values($output['frequent']));
+    
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('medicalItemsChart').getContext('2d');
+            var medicalItemsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labelsPattern,
+                    datasets: [{
+                        label: 'Patterns',
+                        data: dataPattern,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                // options: {
+                //     scales: {
+                //         y: {
+                //             beginAtZero: true
+                //         }
+                //     }
+                // }
+                options: {
+                            indexAxis: 'y',
+                            scales: {
+                                x: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('medicalItemsChartDonat').getContext('2d');
+            var medicalItemsChartDonat = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labelTop10,
+                    datasets: [{
+                        label: 'Quantity',
+                        data: dataTop10,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(201, 203, 207, 0.2)',
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(201, 203, 207, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            enabled: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </x-app-layout>

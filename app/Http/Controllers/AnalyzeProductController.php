@@ -35,6 +35,8 @@ class AnalyzeProductController extends Controller
             ];
         }
 
+        // dd($output);
+
         return view('pages.product_analyze.index', compact('listDataset', 'output', 'dataset'));
     }
 }

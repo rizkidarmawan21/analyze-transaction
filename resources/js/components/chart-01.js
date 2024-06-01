@@ -1,7 +1,20 @@
 import ApexCharts from "apexcharts";
 
+
+// fetch data with params id
+
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get("id");
+
+const fetchData = async () => {
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+  const data = await res.json();
+  return data;
+}
+
 // ===== chartOne
 const chart01 = () => {
+  
   const chartOneOptions = {
     series: [
       {
@@ -133,6 +146,9 @@ const chart01 = () => {
   const chartSelector = document.querySelectorAll("#chartOne");
 
   if (chartSelector.length) {
+
+    
+
     const chartOne = new ApexCharts(
       document.querySelector("#chartOne"),
       chartOneOptions

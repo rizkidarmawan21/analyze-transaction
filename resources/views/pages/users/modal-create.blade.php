@@ -40,6 +40,16 @@
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
                                 <div class="space-y-2">
+                                    <x-input-label for="role" value="Role" class="!text-lg" />
+                                    <select name="role" id="role" x-bind:value="isEdit ? selectedValue.role : ''"
+                                    class="w-full rounded-lg border border-stroke bg-transparent pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary !py-2 !px-3 w-1/4">
+                                        <option value="">-- Pilih Role --</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="leader">Leader</option>
+                                    </select>
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                </div>
+                                <div class="space-y-2">
                                     <x-input-label for="password" value="password" class="!text-lg" />
                                     <x-text-input id="password" name="password" type="password"
                                         placeholder="Insert Password" class="!py-2 !px-3" />

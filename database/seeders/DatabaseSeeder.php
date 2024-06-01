@@ -23,8 +23,10 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => "Admin",
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('12345678')
+            'email' => 'adminalkes@gmail.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'admin',
+            'is_default' => true
         ]);
 
         // $this->call(DatasetSeeder::class);

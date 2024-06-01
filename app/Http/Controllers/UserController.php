@@ -35,6 +35,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required',
+            'role' => 'required|in:admin,leader'
         ]);
 
         User::create($validated);
@@ -67,6 +68,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             // 'password' => 'required',
+            'role' => 'required|in:admin,leader'
         ]);
 
         $user->update($validated);
