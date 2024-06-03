@@ -53,20 +53,6 @@
                 </div>
                 @if ($dataset)
                     <div>
-                    <div class="flex gap-5 w-full my-5">
-                        <div class="flex-grow">
-                            <h1 class="font-bold">
-                                Patterns
-                            </h1>
-                            <canvas id="medicalItemsChart"></canvas>
-                        </div>
-                        <div class="w-[35%]">
-                            <h1 class="font-bold">
-                                Top Product 10
-                            </h1>
-                            <canvas id="medicalItemsChartDonat"></canvas>
-                        </div>
-                    </div>
                         <div class="my-5">
                             <h1 class="mt-10 text-xl">
                                 Dataset :
