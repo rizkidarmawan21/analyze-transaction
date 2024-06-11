@@ -8,23 +8,30 @@ use App\Libraries\FPGrowth\FPGrowth;
 
 class FPGrowthService
 {
-    private function frequency($transactions)
-    {
-        $frequency = [];
+    // private function frequency($transactions)
+    // {
+    //     $frequency = [];
 
-        foreach ($transactions as $transaction) {
-            foreach ($transaction as $item) {
-                if (!isset($frequency[$item])) {
-                    $frequency[$item] = 1;
-                } else {
-                    $frequency[$item]++;
-                }
-            }
-        }
+    //     foreach ($transactions as $transaction) {
+    //         foreach ($transaction as $item) {
+    //             if (!isset($frequency[$item])) {
+    //                 $frequency[$item] = 1;
+    //             } else {
+    //                 $frequency[$item]++;
+    //             }
+    //         }
+    //     }
 
-        return $frequency;
-    }
+    //     return $frequency;
+    // }
 
+
+
+    /*
+    * Fungsi ini untuk menghitung frekuensi item yaitu berapa kali item tersebut muncul
+    * dalam transaksi. Jika item tersebut muncul lebih dari threshold maka item tersebut (threshold adalah nilai support)
+    * akan dianggap sebagai item yang sering muncul.
+    */
     private function frequency2($transactions, $threshold)
     {
         $frequentItems = [];
@@ -70,14 +77,7 @@ class FPGrowthService
         $frequencies = $this->frequency2($transactions, $support);
 
         //urutkan dari yang terbanyak dan ambil 10 data teratas
-        // arsort($frequencies);
         $frequent = array_slice($frequencies, 0, 10);
-
-        // // tampilkan 10 item yang paling sering muncul
-        // echo "10 item yang paling sering muncul : <br>";
-        // foreach ($frequent as $key => $value) {
-        //     echo $key . " : " . $value . "<br>";
-        // }
 
         //jalankan algoritma FP-Growth
         $fpgrowth->run($transactions);
@@ -85,11 +85,6 @@ class FPGrowthService
         // masukan pattern ke variabel patterns
         $patterns = $fpgrowth->getPatterns();
 
-        // // tampilkan hasil pattern fp-growth
-        // echo "<br> Patterns : <br>";
-        // foreach ($patterns as $key => $value) {
-        //     echo $key . " : " . $value . "<br>";
-        // }
 
         // masukan rule ke variabel rules
         $rules = $fpgrowth->getRules();

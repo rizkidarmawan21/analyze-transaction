@@ -22,6 +22,19 @@ class FPTree
      * @param int $threshold
      * @param $rootValue
      * @param int $rootCount
+     * 
+     * transactions adalah array yang berisi itemset yang akan dijadikan sebagai input algoritma FPGrowth.
+     * threshold adalah nilai minimum support yang harus dipenuhi oleh itemset agar dianggap sering muncul.
+     * rootValue adalah nilai root node dari FP Tree.
+     * rootCount adalah nilai count dari root node dari FP Tree.
+     * 
+     * Lalu kita panggil method findFrequentItems, buildHeaderTable, dan buildFPTree.
+     * 
+     * findFrequentItems digunakan untuk membuat dictionary dari itemset yang sering muncul.
+     * buildHeaderTable digunakan untuk membuat header table. apa itu header table? Header table adalah struktur data yang digunakan untuk menyimpan node yang sama dalam FP Tree.
+     * buildFPTree digunakan untuk membuat FP Tree.
+     * 
+     * Lalu kita inisialisasi property frequent, headers, dan root.
      */
     public function __construct(array $transactions, int $threshold, $rootValue, int $rootCount)
     {
@@ -35,6 +48,8 @@ class FPTree
      * @param array $transactions
      * @param int $threshold
      * @return array<string,int>
+     * 
+     * Fungsi ini digunakan untuk membuat dictionary dari itemset yang sering muncul. apa itu dictionary? Dictionary adalah struktur data yang digunakan untuk menyimpan data dalam bentuk key-value pair.
      */
     protected function findFrequentItems(array $transactions, int $threshold): array
     {
@@ -62,6 +77,9 @@ class FPTree
     /**
      * Build the header table.
      * @return array<string,null|FPNode>
+     * 
+     * Fungsi ini digunakan untuk membuat header table. apa itu header table? Header table adalah struktur data yang digunakan untuk menyimpan node yang sama dalam FP Tree.
+     * ini fungsinya buat apa? Header table digunakan untuk menyimpan node yang sama dalam FP Tree.
      */
     protected function buildHeaderTable(): array
     {
@@ -79,6 +97,9 @@ class FPTree
      * @param $rootCount
      * @param $frequent
      * @return FPNode
+     * 
+     * Fungsi ini digunakan untuk membuat FP Tree. apa itu FP Tree? FP Tree adalah struktur data yang digunakan untuk menyimpan itemset yang sering muncul.
+     * 
      */
     protected function buildFPTree($transactions, $rootValue, $rootCount, &$frequent): FPNode
     {
@@ -107,6 +128,9 @@ class FPTree
      * Recursively grow FP tree.
      * @param array $items
      * @param FPNode $node
+     * 
+     * Fungsi ini digunakan untuk menambahkan itemset ke FP Tree.
+     * getChild digunakan untuk mendapatkan child dari node. 
      */
     protected function insertTree(array $items, FPNode $node): void
     {
@@ -143,6 +167,8 @@ class FPTree
      * return true, else return false.
      * @param FPNode $node
      * @return bool
+     * 
+     * Fungsi ini digunakan untuk mengecek apakah FP Tree memiliki single path atau tidak.
      */
     protected function treeHasSinglePath(FPNode $node): bool
     {
@@ -163,6 +189,10 @@ class FPTree
      * Mine the constructed FP tree for frequent patterns.
      * @param int $threshold
      * @return array<string,int>
+     * 
+     * Fungsi ini digunakan untuk mencari pola yang sering muncul.
+     * minePatterns digunakan untuk mencari pola yang sering muncul.
+     * zipPatterns digunakan untuk menambahkan suffix ke pola dalam dictionary jika kita berada dalam conditional FP tree.
      */
     public function minePatterns(int $threshold): array
     {
@@ -178,6 +208,12 @@ class FPTree
      * we are in a conditional FP tree.
      * @param array $patterns
      * @return array<string,int>
+     * 
+     * Fungsi ini digunakan untuk menambahkan suffix ke pola dalam dictionary jika kita berada dalam conditional FP tree.
+     * zipPatterns digunakan untuk menambahkan suffix ke pola dalam dictionary jika kita berada dalam conditional FP tree.
+     * 
+     * Lalu kita cek apakah root node dari FP Tree adalah null atau tidak.
+     * Jika root node dari FP Tree adalah null, maka kita kembalikan pola yang sudah di zip.
      */
     protected function zipPatterns(array $patterns): array
     {
@@ -200,6 +236,16 @@ class FPTree
     /**
      * Generate a list of patterns with support counts.
      * @return array<string,int>
+     * 
+     * Fungsi ini digunakan untuk membuat list dari pola dengan support counts.
+     * generatePatternList digunakan untuk membuat list dari pola dengan support counts.
+     * 
+     * Lalu kita inisialisasi variable patterns.
+     * Lalu kita ambil item dari frequent.
+     * 
+     * Lalu kita cek apakah root node dari FP Tree adalah null atau tidak.
+     * Jika root node dari FP Tree adalah null, maka kita kembalikan pola yang sudah di zip.
+     * 
      */
     protected function generatePatternList(): array
     {
@@ -234,6 +280,14 @@ class FPTree
      * Generate subtrees and mine them for patterns.
      * @param int $threshold
      * @return array
+     * 
+     * Fungsi ini digunakan untuk membuat subtree dan mencari pola yang sering muncul.
+     * mineSubTrees digunakan untuk membuat subtree dan mencari pola yang sering muncul.
+     * 
+     * Lalu kita inisialisasi variable patterns.
+     * Lalu kita ambil frequent dan kita urutkan.
+     * Lalu kita ambil key dari frequent.
+     * 
      */
     protected function mineSubTrees(int $threshold): array
     {
@@ -243,6 +297,7 @@ class FPTree
         $miningOrder = array_keys($miningOrder);
 
         // Get items in tree in reverse order of occurrences.
+        // Ambil item dalam tree dalam urutan terbalik dari kemunculan.
         foreach ($miningOrder as $item) {
             /** @var FPNode[] $suffixes */
             $suffixes = [];
@@ -250,12 +305,14 @@ class FPTree
             $node = $this->headers[$item];
 
             // Follow node links to get a list of all occurrences of a certain item.
+            // Ikuti tautan node untuk mendapatkan daftar semua kemunculan item tertentu.
             while ($node !== null) {
                 $suffixes[] = $node;
                 $node = $node->link;
             }
 
             // For each currence of the item, trace the path back to the root node.
+            // 
             foreach ($suffixes as $suffix) {
                 $frequency = $suffix->count;
                 $path = [];
