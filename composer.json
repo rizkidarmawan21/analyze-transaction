@@ -10,7 +10,8 @@
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1",
-        "spatie/laravel-permission": "^6.7"
+        "spatie/laravel-permission": "^6.7",
+        "drupol/phpermutations": "^1.4"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

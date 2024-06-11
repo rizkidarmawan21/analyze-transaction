@@ -3,7 +3,8 @@
 namespace App\Services;
 
 use App\Models\Transaction;
-use EnzoMC\PhpFPGrowth\FPGrowth;
+// use EnzoMC\PhpFPGrowth\FPGrowth;
+use App\Libraries\FPGrowth\FPGrowth;
 
 class FPGrowthService
 {
@@ -22,6 +23,29 @@ class FPGrowthService
         }
 
         return $frequency;
+    }
+
+    private function frequency2($transactions, $threshold)
+    {
+        $frequentItems = [];
+        foreach ($transactions as $transaction) {
+            foreach ($transaction as $item) {
+                if (array_key_exists($item, $frequentItems)) {
+                    $frequentItems[$item] += 1;
+                } else {
+                    $frequentItems[$item] = 1;
+                }
+            }
+        }
+
+        foreach (array_keys($frequentItems) as $key) {
+            if ($frequentItems[$key] < $threshold) {
+                unset($frequentItems[$key]);
+            }
+        }
+
+        arsort($frequentItems);
+        return $frequentItems;
     }
 
     public function algoritma($id_dataset)
@@ -43,10 +67,10 @@ class FPGrowthService
         }
 
         //menghitung frekuensi item
-        $frequencies = $this->frequency($transactions);
+        $frequencies = $this->frequency2($transactions, $support);
 
         //urutkan dari yang terbanyak dan ambil 10 data teratas
-        arsort($frequencies);
+        // arsort($frequencies);
         $frequent = array_slice($frequencies, 0, 10);
 
         // // tampilkan 10 item yang paling sering muncul
@@ -74,7 +98,7 @@ class FPGrowthService
         // tampilkan hasil rule fp-growth
         // echo "<br> Rules : <br>";
         foreach ($rules as $rule) {
-            $rules_text[] = "Jika membeli <strong>" . $rule[0] . "</strong> maka akan membeli <strong>" . $rule[1] . "</strong> dengan nilai kepercayaan <strong>" . $rule[2] . "</strong>";
+            $rules_text[] = "Jika membeli <strong>" . $rule[0] . "</strong> maka akan membeli <strong>" . $rule[1] . "</strong> dengan nilai kepercayaan <strong>" . $rule[2] * 100 . "%</strong>";
         }
 
 
