@@ -108,20 +108,31 @@
                         Analisis Produk
                     </x-dashboard.sidebar.single-list>
                     <x-dashboard.sidebar.single-list :active="request()->routeIs('analyze.grafik')" label="Grafik" :url="route('analyze.grafik')">
-                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="18" height="18">
-                            <path d="M304 240V16.6c0-9 7-16.6 16-16.6C443.7 0 544 100.3 544 224c0 9-7.6 16-16.6 16H304zM32 272C32 150.7 122.1 50.3 239 34.3c9.2-1.3 17 6.1 17 15.4V288L412.5 444.5c6.7 6.7 6.2 17.7-1.5 23.1C371.8 495.6 323.8 512 272 512C139.5 512 32 404.6 32 272zm526.4 16c9.3 0 16.6 7.8 15.4 17c-7.7 55.9-34.6 105.6-73.9 142.3c-6 5.6-15.4 5.2-21.2-.7L320 288H558.4z"/></svg>
-                        Grafik Analisis Produk
-                    </x-dashboard.sidebar.single-list>
-                    
-                    @if(auth()->user()->role == 'admin')
-                    <x-dashboard.sidebar.single-list :active="request()->routeIs('users.index')" label="Users" :url="route('users.index')">
-                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                        <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"
                             width="18" height="18">
                             <path
-                                d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                                d="M304 240V16.6c0-9 7-16.6 16-16.6C443.7 0 544 100.3 544 224c0 9-7.6 16-16.6 16H304zM32 272C32 150.7 122.1 50.3 239 34.3c9.2-1.3 17 6.1 17 15.4V288L412.5 444.5c6.7 6.7 6.2 17.7-1.5 23.1C371.8 495.6 323.8 512 272 512C139.5 512 32 404.6 32 272zm526.4 16c9.3 0 16.6 7.8 15.4 17c-7.7 55.9-34.6 105.6-73.9 142.3c-6 5.6-15.4 5.2-21.2-.7L320 288H558.4z" />
                         </svg>
-                        User Management
+                        Grafik Analisis Produk
                     </x-dashboard.sidebar.single-list>
+                    <x-dashboard.sidebar.single-list :active="request()->routeIs('analyze.report')" label="Report" :url="route('analyze.report')">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="fill-current"
+                            width="18" height="18">
+                            <path
+                                d="M24 56c0-13.3 10.7-24 24-24H80c13.3 0 24 10.7 24 24V176h16c13.3 0 24 10.7 24 24s-10.7 24-24 24H40c-13.3 0-24-10.7-24-24s10.7-24 24-24H56V80H48C34.7 80 24 69.3 24 56zM86.7 341.2c-6.5-7.4-18.3-6.9-24 1.2L51.5 357.9c-7.7 10.8-22.7 13.3-33.5 5.6s-13.3-22.7-5.6-33.5l11.1-15.6c23.7-33.2 72.3-35.6 99.2-4.9c21.3 24.4 20.8 60.9-1.1 84.7L86.8 432H120c13.3 0 24 10.7 24 24s-10.7 24-24 24H32c-9.5 0-18.2-5.6-22-14.4s-2.1-18.9 4.3-25.9l72-78c5.3-5.8 5.4-14.6 .3-20.5zM224 64H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H224c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 160H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H224c-17.7 0-32-14.3-32-32s14.3-32 32-32zm0 160H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H224c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
+                        </svg>
+                        Report
+                    </x-dashboard.sidebar.single-list>
+
+                    @if (auth()->user()->role == 'admin')
+                        <x-dashboard.sidebar.single-list :active="request()->routeIs('users.index')" label="Users" :url="route('users.index')">
+                            <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+                                width="18" height="18">
+                                <path
+                                    d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                            </svg>
+                            User Management
+                        </x-dashboard.sidebar.single-list>
                     @endif
                 </ul>
             </div>

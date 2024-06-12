@@ -32,7 +32,7 @@ class FPGrowthService
     * dalam transaksi. Jika item tersebut muncul lebih dari threshold maka item tersebut (threshold adalah nilai support)
     * akan dianggap sebagai item yang sering muncul.
     */
-    private function frequency2($transactions, $threshold)
+    public function frequency2($transactions, $threshold)
     {
         $frequentItems = [];
         foreach ($transactions as $transaction) {

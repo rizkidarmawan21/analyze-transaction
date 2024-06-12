@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(AnalyzeProductController::class)->name('analyze.')->prefix('analyze')->group(function () {
         Route::get('', 'index')->name('index');
         Route::get('grafik', 'grafik')->name('grafik');
+        Route::get('report', 'report')->name('report');
+        
     });
     Route::controller(TransactionController::class)->name('transaction.')->prefix('transaction')->group(function () {
         Route::get('', 'index')->name('index');

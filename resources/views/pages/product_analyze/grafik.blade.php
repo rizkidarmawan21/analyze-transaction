@@ -26,13 +26,7 @@
         confirmUrl: '',
     }">
         <h2 class="flex items-center mb-5 text-3xl font-medium">
-            Dataset Management
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mx-2 fill-current"
-                viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                <path
-                    d="M470.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 256 265.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160zm-352 160l160-160c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L210.7 256 73.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0z" />
-            </svg>
-            Show
+            Grafik Analisis
         </h2>
         <div
             class="rounded-sm border border-stroke bg-white px-5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
@@ -91,9 +85,9 @@
 
         const labelTop10 = @json(array_keys($output['frequent']));
         const dataTop10 = @json(array_values($output['frequent']));
-    
 
-        document.addEventListener('DOMContentLoaded', function () {
+
+        document.addEventListener('DOMContentLoaded', function() {
             var ctx = document.getElementById('medicalItemsChart').getContext('2d');
             var medicalItemsChart = new Chart(ctx, {
                 type: 'bar',
@@ -115,17 +109,17 @@
                 //     }
                 // }
                 options: {
-                            indexAxis: 'y',
-                            scales: {
-                                x: {
-                                    beginAtZero: true
-                                }
-                            }
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true
                         }
+                    }
+                }
             });
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             var ctx = document.getElementById('medicalItemsChartDonat').getContext('2d');
             var medicalItemsChartDonat = new Chart(ctx, {
                 type: 'doughnut',
@@ -173,6 +167,114 @@
                     }
                 }
             });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('newCharts').getContext('2d');
+
+            const labels = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV',
+                'XV', 'XVI'
+            ];
+            const datasets = [{
+                    label: 'Thn 2022',
+                    data: [532, 337, 789, 1354, 800, 948, 1293, 302, 740, 507, 211, 98, 275, 41, 116, 170],
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: false,
+                    lineTension: 0.1
+                },
+                {
+                    label: 'Thn 2023',
+                    data: [373, 350, 681, 1233, 742, 675, 512, 255, 115, 318, 98, 74, 147, 18, 123, 312],
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    fill: false,
+                    lineTension: 0.1
+                },
+                {
+                    label: 'Thn 2024',
+                    data: [554, 574, 991, 1698, 987, 1321, 1800, 567, 1088, 826, 430, 123, 397, 129, 183, 312],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: false,
+                    lineTension: 0.1
+                }
+            ];
+
+            const data = {
+                labels: labels,
+                datasets: datasets
+            };
+
+            const options = {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'DRTPM 2024'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            };
+
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: options
+            });
+
+            // Function to create the data table
+            // function createDataTable(datasets, labels) {
+            //     let tableHtml = '<table class="data-table"><thead><tr><th>Thn</th>';
+            //     labels.forEach(label => {
+            //         tableHtml += `<th>${label}</th>`;
+            //     });
+            //     tableHtml += '</tr></thead><tbody>';
+
+            //     datasets.forEach(dataset => {
+            //         tableHtml += `<tr><td>${dataset.label}</td>`;
+            //         dataset.data.forEach(dataPoint => {
+            //             tableHtml += `<td>${dataPoint}</td>`;
+            //         });
+            //         tableHtml += '</tr>';
+            //     });
+
+            //     tableHtml += '</tbody></table>';
+            //     document.getElementById('dataTableContainer').innerHTML = tableHtml;
+            // }
+
+            function createDataTable(datasets, labels) {
+                let tableHtml = `
+                        <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="py-1 px-2 border-b border-gray-200 text-xs">Thn</th>
+                                    ${labels.map(label => `<th class="py-1 px-2 border-b border-gray-200 text-xs">${label}</th>`).join('')}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${datasets.map(dataset => `
+                                                <tr>
+                                                    <td class="py-2 px-4 border-b border-gray-200 text-xs">${dataset.label}</td>
+                                                    ${dataset.data.map(dataPoint => `<td class="py-1 px-2 border-b border-gray-200 text-xs">${dataPoint}</td>`).join('')}
+                                                </tr>
+                                            `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                document.getElementById('dataTableContainer').innerHTML = tableHtml;
+            }
+
+            // Create the data table
+            createDataTable(datasets, labels);
+
+
         });
     </script>
 </x-app-layout>
