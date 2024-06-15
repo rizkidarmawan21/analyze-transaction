@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
         Route::get('', 'index')->name('index');
         Route::get('grafik', 'grafik')->name('grafik');
         Route::get('report', 'report')->name('report');
+        Route::post('report', 'report')->name('report.filter');
         
     });
     Route::controller(TransactionController::class)->name('transaction.')->prefix('transaction')->group(function () {

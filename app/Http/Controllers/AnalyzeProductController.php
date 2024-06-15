@@ -72,11 +72,20 @@ class AnalyzeProductController extends Controller
 
     public function report(Request $request)
     {
-        $startYear = $request->start_year ?? date('Y');
-        $endYear = $request->end_year ?? date('Y') - 2;
 
-        $transactions = Transaction::whereYear('transaction_date', '>=', $endYear)
-            ->whereYear('transaction_date', '<=', $startYear)
+        // Cek jika start_year dan end_year tidak kosong
+        if ($request->start_year && $request->end_year) {
+            // Cek jika start_year lebih besar dari end_year
+            if ($request->start_year >= $request->end_year) {
+                return redirect()->route('analyze.report')->with('failed', 'Start Year must be less than End Year');
+            }
+        }
+
+        $startYear = $request->start_year ?? date('Y') - 2;
+        $endYear = $request->end_year ?? date('Y');
+
+        $transactions = Transaction::whereYear('transaction_date', '>=', $startYear)
+            ->whereYear('transaction_date', '<=', $endYear)
             ->get()
             ->groupBy(function ($transaction) {
                 // Convert the transaction_date string to a Carbon object
@@ -158,7 +167,10 @@ class AnalyzeProductController extends Controller
 
         // dd($result, $labels);
         // dd($dataWithFrequency);
+        $startYearSelected = $startYear;
+        $endYearSelected = $endYear;
 
-        return view('pages.product_analyze.report', compact('result', 'labels', 'dataWithFrequency', 'startYear', 'endYear'));
+        // dd($result, $labels, $dataWithFrequency, $startYearSelected, $endYearSelected);
+        return view('pages.product_analyze.report', compact('result', 'labels', 'dataWithFrequency', 'startYearSelected', 'endYearSelected'));
     }
 }

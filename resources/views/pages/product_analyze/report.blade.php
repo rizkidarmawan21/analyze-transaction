@@ -50,71 +50,88 @@
                     <h1 class="font-bold text-xl">
                         Filter
                     </h1>
-                    <div class="mt-2 gap-3 bg-slate-200/25 p-2 inline-flex rounded-lg">
-                        <div class="flex items-center space-x-4">
-                            <label for="yearStart" class="text-sm font-medium text-gray-700 dark:text-gray-300">Year
-                                Start</label>
-                            <select name="yearStart" id="yearStart"
-                                class="w-32 px-4 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-primary focus:border-primary dark:bg-boxdark dark:border-strokedark dark:text-gray-300">
-                                <option value="">Pilih Tahun</option>
-                                @foreach ($years as $year)
-                                    <option value="{{ $year }}">{{ $year }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <label for="yearEnd" class="text-sm font-medium text-gray-700 dark:text-gray-300">Year
-                                End</label>
-                            <select name="yearEnd" id="yearEnd"
-                                class="w-32 px-4 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-primary focus:border-primary dark:bg-boxdark dark:border-strokedark dark:text-gray-300">
-                                <option value="">Pilih Tahun</option>
-                                @foreach ($years as $year)
-                                    <option value="{{ $year }}">{{ $year }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="">
+                        <form class="mt-2 gap-3 bg-slate-200/25 p-2 inline-flex rounded-lg" action=""
+                            method="get">
+                            <div class="flex items-center space-x-4">
+                                <label for="start_year"
+                                    class="text-sm font-medium text-gray-700 dark:text-gray-300">Year
+                                    Start</label>
+                                <select name="start_year" id="start_year" required
+                                    class="w-32 px-4 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-primary focus:border-primary dark:bg-boxdark dark:border-strokedark dark:text-gray-300">
+                                    <option value="">Pilih Tahun</option>
+                                    @foreach ($years as $year)
+                                        <option value="{{ $year }}" @selected($startYearSelected == $year)>
+                                            {{ $year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <label for="end_year" class="text-sm font-medium text-gray-700 dark:text-gray-300">Year
+                                    End</label>
+                                <select name="end_year" id="end_year" required
+                                    class="w-32 px-4 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-primary focus:border-primary dark:bg-boxdark dark:border-strokedark dark:text-gray-300">
+                                    <option value="">Pilih Tahun</option>
+                                    @foreach ($years as $year)
+                                        <option value="{{ $year }}" @selected($endYearSelected == $year)>
+                                            {{ $year }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <button
+                                    class="px-4 py-1 bg-primary text-white rounded-md focus:outline-none focus:ring focus:ring-primary focus:border-primary hover:bg-primary/60">Filter</button>
+                            </div>
+                        </form>
                     </div>
 
 
-                    <div class="my-5">
-                        <h1 class="font-bold">Top 10 Product Sales By Year</h1>
+                    @if ($result)
+                        <div class="my-5">
+                            <h1 class="font-bold">Top 10 Product Sales By Year</h1>
 
-                        <div>
-                            <table class="mt-3 table-auto">
-                                <tr class="bg-slate-100/25">
-                                    <th class="border text-sm border-[#eee] px-4 py-1 dark:border-strokedark ">No</th>
-                                    @foreach ($dataWithFrequency as $item)
-                                        <th class="border text-sm border-[#eee] px-4 py-1 dark:border-strokedark"
-                                            colspan="2">{{ $item['year'] }}</th>
-                                    @endforeach
-                                </tr>
-
-                                @php
-                                    $maxItems = max(array_map('count', array_column($dataWithFrequency, 'frequent')));
-                                @endphp
-
-                                @for ($i = 0; $i < $maxItems; $i++)
-                                    <tr>
-                                        <td class="border text-sm border-[#eee] px-4 py-1 dark:border-strokedark ">
-                                            {{ $i + 1 }}</td>
+                            <div>
+                                <table class="mt-3 table-auto">
+                                    <tr class="bg-slate-100/25">
+                                        <th class="border text-sm border-[#eee] px-4 py-1 dark:border-strokedark ">No
+                                        </th>
                                         @foreach ($dataWithFrequency as $item)
-                                            @php
-                                                $keys = array_keys($item['frequent']);
-                                                $key = $keys[$i] ?? null;
-                                                $data = $item['frequent'][$key] ?? null;
-                                            @endphp
-                                            <td class="border text-sm border-[#eee] px-4 py-1 dark:border-strokedark ">
-                                                {{ $key }}
-                                            </td>
-                                            <td class="border text-sm border-[#eee] px-4 py-1 dark:border-strokedark ">
-                                                {{ $data }}
-                                            </td>
+                                            <th class="border text-sm border-[#eee] px-4 py-1 dark:border-strokedark"
+                                                colspan="2">{{ $item['year'] }}</th>
                                         @endforeach
                                     </tr>
-                                @endfor
-                            </table>
+
+                                    @php
+                                        $maxItems = max(
+                                            array_map('count', array_column($dataWithFrequency, 'frequent')),
+                                        );
+                                    @endphp
+
+                                    @for ($i = 0; $i < $maxItems; $i++)
+                                        <tr>
+                                            <td class="border text-sm border-[#eee] px-4 py-1 dark:border-strokedark ">
+                                                {{ $i + 1 }}</td>
+                                            @foreach ($dataWithFrequency as $item)
+                                                @php
+                                                    $keys = array_keys($item['frequent']);
+                                                    $key = $keys[$i] ?? null;
+                                                    $data = $item['frequent'][$key] ?? null;
+                                                @endphp
+                                                <td
+                                                    class="border text-sm border-[#eee] px-4 py-1 dark:border-strokedark ">
+                                                    {{ $key }}
+                                                </td>
+                                                <td
+                                                    class="border text-sm border-[#eee] px-4 py-1 dark:border-strokedark ">
+                                                    {{ $data }}
+                                                </td>
+                                            @endforeach
+                                        </tr>
+                                    @endfor
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
 
                 @if ($result)
@@ -130,7 +147,7 @@
                 @else
                     <div class="mt-20">
                         <p class="text-center text-lg">
-                            Data tidak ditemukan, dataset tidak lengkap
+                            Tidak ada data transaksi pada rentang tahun yang dipilih
                         </p>
 
                     </div>
@@ -236,11 +253,11 @@
                             </thead>
                             <tbody>
                                 ${datasets.map(dataset => `
-                                                                                                                                                                        <tr>
-                                                                                                                                                                            <td class="py-2 px-4 border-b border-gray-200 text-xs text-center">${dataset.label}</td>
-                                                                                                                                                                            ${dataset.data.map(dataPoint => `<td class="py-1 px-2 border-b border-gray-200 text-xs text-center">${dataPoint}</td>`).join('')}
-                                                                                                                                                                        </tr>
-                                                                                                                                                                    `).join('')}
+                                                                                                                                                                                                                <tr>
+                                                                                                                                                                                                                    <td class="py-2 px-4 border-b border-gray-200 text-xs text-center">${dataset.label}</td>
+                                                                                                                                                                                                                    ${dataset.data.map(dataPoint => `<td class="py-1 px-2 border-b border-gray-200 text-xs text-center">${dataPoint}</td>`).join('')}
+                                                                                                                                                                                                                </tr>
+                                                                                                                                                                                                            `).join('')}
                             </tbody>
                         </table>
                     `;
