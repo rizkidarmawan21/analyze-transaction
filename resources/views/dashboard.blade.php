@@ -131,7 +131,7 @@
 
         <div class="mt-3 grid grid-cols-2 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
             @php
-                $products = App\Models\Product::all();
+                $products = App\Models\Product::where('is_show', 1)->get();
             @endphp
 
             @foreach ($products as $item)
