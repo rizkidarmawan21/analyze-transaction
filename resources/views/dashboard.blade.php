@@ -122,4 +122,36 @@
         </div>
         <!-- Card Item End -->
     </div>
+
+    <div>
+        {{-- List Product --}}
+        <div class="mt-6">
+            <h2 class="text-xl font-bold text-black dark:text-white">List Product</h2>
+        </div>
+
+        <div class="mt-3 grid grid-cols-2 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+            @php
+                $products = App\Models\Product::all();
+            @endphp
+
+            @foreach ($products as $item)
+                <div
+                    class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                    <div class="p-2">
+                        <img src="{{ asset('storage/' . $item->image) }}"
+                            alt="" class="w-full h-50 object-cover">
+                    </div>
+
+                    <div class="my-1 p-2 text-center">
+                        <h4 class="text-lg font-bold text-black dark:text-white">
+                            {{ $item->name }}
+                        </h4>
+                        <p class="text-sm text-black dark:text-white">
+                            Rp. {{ number_format($item->price) ?? '-' }}
+                        </p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
 </x-app-layout>
