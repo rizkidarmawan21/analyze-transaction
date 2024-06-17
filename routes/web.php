@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnalyzeProductController;
 use App\Http\Controllers\DatasetController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class);
     Route::resource('datasets', DatasetController::class);
+    Route::resource('products', ProductController::class);
     Route::controller(DatasetController::class)->name('dataset.')->prefix('dataset')->group(function () {
         Route::post('import', 'import')->name('import');
         Route::get('download-template', 'downloadTemplate')->name('download-template');
